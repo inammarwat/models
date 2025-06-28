@@ -9,6 +9,8 @@ execute:
 Public opinion data helps us understand how individual characteristics and campaign messaging relate to voter preferences.  
 Using data from a March 2024 YouGov survey of 1,559 U.S. adults, we estimate the proportion of votes Joe Biden is expected to receive in the upcoming presidential election.
 
+Our estimates may be biased if late-deciding voters in November end up supporting Biden at different rates than those who expressed clear preferences in the March survey.
+
 ```r
 #| message: false
 #| warning: false
