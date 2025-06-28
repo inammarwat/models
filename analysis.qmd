@@ -2,5 +2,16 @@
 title: "Models"
 author: "Inam Khan"
 format: html
+execute: 
+  echo: false
 ---
 
+Public opinion data helps us understand how individual characteristics and campaign messaging relate to voter preferences.  
+Using data from a March 2024 YouGov survey of 1,559 U.S. adults, we estimate the proportion of votes Joe Biden is expected to receive in the upcoming presidential election.
+
+```r
+#| message: false
+#| warning: false
+library(tidyverse)
+library(primer.data)
+```
