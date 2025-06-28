@@ -16,4 +16,14 @@ Our estimates may be biased if late-deciding voters in November end up supportin
 #| warning: false
 library(tidyverse)
 library(primer.data)
+library(tidymodels)   # <-- added
+library(broom)        # <-- added
 ```
+
+```r
+#| cache: true
+fit_biden <- 
+  logistic_reg() %>%
+  fit(biden ~ 1, data = poll_data)
+```
+
