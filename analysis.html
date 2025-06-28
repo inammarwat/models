@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -105,19 +70,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>#| message: false #| warning: false library(tidyverse) library(primer.data) library(tidymodels) library(broom) library(gt) library(marginaleffects)</p>
+<p>#| cache: true fit_biden &lt;- logistic_reg() %&gt;% fit(biden ~ 1, data = poll_data)</p>
+<p>preds &lt;- avg_predictions(fit_biden) |&gt; mutate(group = “Yes”)</p>
+<section id="graphic-of-support-for-biden" class="level1">
+<h1>Graphic of support for Biden</h1>
+<p>preds |&gt; filter(group == “Yes”) |&gt; ggplot(aes(x = group, y = estimate, ymin = conf.low, ymax = conf.high)) + geom_pointrange(color = “#2C3E50”, size = 1.0) + labs( title = “Support for President Biden Among Respondents”, subtitle = “Estimated percentage of voters who support Biden”, caption = “Source: YouGov poll, March 2024.”, y = “Predicted percentage of support”, x = NULL ) + scale_y_continuous( labels = scales::percent_format(accuracy = 1), breaks = seq(0.3, 0.5, 0.02), limits = c(0.3, 0.5) ) + theme_minimal(base_size = 14) + theme( plot.title = element_text(face = “bold”), plot.subtitle = element_text(margin = margin(b = 10)), plot.caption = element_text(size = 10, hjust = 0), axis.text.x = element_blank(), axis.ticks.x = element_blank() )</p>
 <p>Public opinion data helps us understand how individual characteristics and campaign messaging relate to voter preferences.<br>
 Using data from a March 2024 YouGov survey of 1,559 U.S. adults, we estimate the proportion of votes Joe Biden is expected to receive in the upcoming presidential election.</p>
-<p>Our estimates may be biased if late-deciding voters in November end up supporting Biden at different rates than those who expressed clear preferences in the March survey.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(primer.data)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)   <span class="co"># &lt;-- added</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)        <span class="co"># &lt;-- added</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit_biden <span class="ot">&lt;-</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(biden <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> poll_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Our model suggests that around 42% of Americans intend to vote for Joe Biden, with a 95% confidence interval spanning roughly 39% to 45%.</p>
+<p>However, these estimates may be off if voter preferences change over time or if the sample fails to reflect the final voting population. A more cautious estimate might range from 38% to 47% support for Biden.</p>
+</section>
 
 </main>
 <!-- /main column -->
